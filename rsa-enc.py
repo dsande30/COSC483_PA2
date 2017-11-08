@@ -2,19 +2,22 @@
 import sys
 import argparse
 
-def getflags():
+def getFlags():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-k", dest = 'keyfile', help="Enter Key file", required = True)
-    parser.add_argument("-i", dest = 'inputfile', help="Enter input file", required = True)
-    parser.add_argument("-o", dest = 'outputfile', help= "Enter output file", required=True)
+    parser.add_argument("-k", dest = 'keyFile', help="Enter Key file", required = True)
+    parser.add_argument("-i", dest = 'inputFile', help="Enter input file", required = True)
+    parser.add_argument("-o", dest = 'outputFile', help= "Enter output file", required=True)
     args = parser.parse_args()
 
-    print "Input file: ", args.inputfile
-    print "Key file: ", args.keyfile
-    print "Output file: ", args.outputfile
+    return args
+
+def readKey(keyFile):
+    print "Opening", keyFile
+
 
 def main():
-    getflags()
+    args = getFlags()
+    readKey(args.keyFile)
 
 if __name__ == "__main__":
 	main()
