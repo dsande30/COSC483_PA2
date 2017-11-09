@@ -15,11 +15,12 @@ def getFlags():
     return args
 
 def readKey(keyFile):
-    print "Opening", keyFile
+    key = open(keyFile, 'rb')
+    N = key.readline()
+    key.close()
 
 def variableGenerator():
     #to make p and q
-    '''
     p = 0
     q = 0
     while(p == q):
@@ -30,11 +31,6 @@ def variableGenerator():
             q = int(q)
             p = 0
             q = 0
-    '''
-    #'''
-    p = 7
-    q = 11
-    #'''
 
     N = p * q
     order = (p-1)*(q-1)
