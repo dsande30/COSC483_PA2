@@ -19,6 +19,13 @@ def readKey(keyFile):
     N = key.readline()
     key.close()
 
+def readMessage(inputFile):
+    f = open(inputFile, 'r')
+    m = f.readline()
+    print "m: %s\n" % m
+    f.close()
+
+
 def variableGenerator():
     #to make p and q
     p = 0
@@ -55,6 +62,7 @@ def variableGenerator():
 def main():
     args = getFlags()
     readKey(args.keyFile)
+    readMessage(args.inputFile)
     variableGenerator()
 
 if __name__ == "__main__":
