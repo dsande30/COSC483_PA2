@@ -59,6 +59,21 @@ def variableGenerator():
     #d is inverse of e mod order
     d = number.inverse(e, order)
 
+def pad(message, r):
+    paddedM = b'\x00' + b'\x02'
+    print("r: ", r)
+    print("Length of r: ", len(r))
+    test = 0
+    while test == 0:
+        test = 1
+        randBits = str(random.getrandbits(r))
+        print("randBits: ", randBits)
+        print("Length of randBits: ", len(randBits))
+        for n in randBits:
+            if n == b'x\00':
+                test = 0
+    paddedM += randBits + b'\x00' + message
+
 def main():
     args = getFlags()
     readKey(args.keyFile)
