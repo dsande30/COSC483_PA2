@@ -17,6 +17,7 @@ def getFlags():
 def variableGenerator(numBits):
 
     #to make p and q
+    numBits = numBits
     print "N: %d\n" % numBits
     p = 0
     q = 0
@@ -25,14 +26,21 @@ def variableGenerator(numBits):
     while(p ==0 and q == 0):
         p = number.getPrime(l)
         q = number.getPrime(l)
-        print "%d\n", sys.getsizeof(p)
-        #if len(str(p)) != len(str(q)):
-        #    p = int(p)
-        #    q = int(q)
-        #    p = 0
-        #    q = 0
-    print "P: %d\n" % p
-    print "Q: %d\n" % q
+        print "p",sys.getsizeof(p)
+        print "q",sys.getsizeof(q)
+        if len(str(p)) != len(str(q)):
+            p = int(p)
+            q = int(q)
+            p = 0
+            q = 0
+    print "Len P: %d" % len(str(p))
+    print "Len Q: %d" % len(str(q))
+    print "Len N: %d" % len(str(int(p) * int(q)))
+    print "P: %d\n" % int(p)
+    print "Q: %d\n" % int(q)
+
+    p = int(p)
+    q = int(q)
 
     N = p * q
     order = (p-1)*(q-1)

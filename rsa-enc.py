@@ -2,7 +2,9 @@
 import sys
 import argparse
 from Crypto.Util import number
+from Crypto.Random import random
 import fractions
+import binascii
 
 def getFlags():
     #parse command line args
@@ -17,11 +19,18 @@ def getFlags():
 def readKey(keyFile):
     contents = []
     key = open(keyFile, 'rb')
-    numBits = keyFile.readline()
-    N = keyFile.readline()
-    e = keyFile.readline()
+    numBits = key.readline()
+    #print "NumBits after read: %s" %numBits
+    N = key.readline()
+    e = key.readline()
     key.close()
-    contents += numBits + N + e
+    numBits = numBits.strip()
+    N = N.strip()
+    e = e.strip()
+    contents.append(int(numBits))
+    contents.append(int(N))
+    contents.append(int(e))
+    #print contents
     return contents
 
 def readInput(inputFile):
@@ -65,31 +74,36 @@ def variableGenerator():
 
 def pad(message, r):
     paddedM = b'\x00' + b'\x02'
-    r = str(r)
     print("r: ", r)
-    print("Length of r: ", len(r))
+    #print("Length of r: ", len(r))
+    message = message.strip()
     if len(message) < (r-24):
-        message += 0 * ((r-24)-len(message))
-    print("Message: ", message)
-    print("Message Length: ", len(message))
+        message += "0" * ((r-24)-len(message))
+    print("Message: %s" % message)
+    #print("Message Length: ", len(message))
     test = 0
     while test == 0:
         test = 1
         randBits = str(random.getrandbits(r))
+        print "randBits before encoding: %s" % randBits
+        randBits = randBits.encode('utf-8')
+        print "randBits after encoding: %s" % randBits
         bitBlocks = []
         check = randBits[:]
         while len(check) > 0:
-            slicelen = min(len(randbits), 8)
+            slicelen = min(len(check), 8)
             bitBlocks.append(check[0:slicelen])
             check = check[slicelen:]
-        print("randBits: ", randBits)
-        print("Length of randBits: ", len(randBits))
+        #print("randBits: %s" % randBits)
+        #print("Length of randBits: ", len(randBits))
         print("bitBlocks: ", bitBlocks)
-        print("bitBlocks Length: ", len(bitBlocks))
+        #print("bitBlocks Length: ", len(bitBlocks))
         for n in bitBlocks:
-            if n == b'x\00':
+            if n == b'\x00':
                 test = 0
-    paddedM += randBits + b'\x00' + message
+    #randBits = binascii.hexlify(randBits)
+    print("Hex randBits: 0x%s" % randBits)
+    paddedM += format(int(randBits), '02x') + b'\x00' + binascii.hexlify(message)
     return paddedM
 
 def main():
@@ -97,7 +111,11 @@ def main():
     contents = readKey(args.keyFile)
     variableGenerator()
     message = readInput(args.inputFile)
+    #print("N: ", contents[1])
+    print("numBits: ", contents[0])
+    #print(contents)
     paddedM = pad(message, int(contents[0]) / 2)
+    print("paddedM: ", paddedM)
 
 
 if __name__ == "__main__":
