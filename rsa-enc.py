@@ -24,11 +24,6 @@ def readKey(keyFile):
     contents += numBits + N + e
     return contents
 
-def readMessage(inputFile):
-    f = open(inputFile, 'r')
-    m = f.readline()
-    print "m: %s\n" % m
-    f.close()
 
 
 def variableGenerator():
@@ -66,6 +61,7 @@ def variableGenerator():
 
 def pad(message, r):
     paddedM = b'\x00' + b'\x02'
+    r = str(r)
     print("r: ", r)
     print("Length of r: ", len(r))
     if len(message) < (r-24):
@@ -90,12 +86,15 @@ def pad(message, r):
             if n == b'x\00':
                 test = 0
     paddedM += randBits + b'\x00' + message
+    return paddedM
 
 def main():
     args = getFlags()
-    readKey(args.keyFile)
-    readMessage(args.inputFile)
+
     variableGenerator()
+    message = readInput(args.inputFile)
+    paddedM = pad(message, int(contents[0]) / 2)
+
 
 if __name__ == "__main__":
 	main()
