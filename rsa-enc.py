@@ -16,7 +16,9 @@ def getFlags():
 
 def readKey(keyFile):
     key = open(keyFile, 'rb')
-    N = key.readline()
+    numBits = keyFile.readline()
+    N = keyFile.readline()
+    e = keyFile.readline()
     key.close()
 
 def readMessage(inputFile):
@@ -63,6 +65,10 @@ def pad(message, r):
     paddedM = b'\x00' + b'\x02'
     print("r: ", r)
     print("Length of r: ", len(r))
+    if len(message) < (r-24):
+        message += 0 * ((r-24)-len(message))
+    print("Message: ", message)
+    print("Message Length: ", len(message))
     test = 0
     while test == 0:
         test = 1
