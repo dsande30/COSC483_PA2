@@ -1,5 +1,8 @@
 import sys
 import argparse
+from Crypto.Util import number
+import fractions
+
 
 def getFlags():
     #parse command line args
@@ -11,20 +14,28 @@ def getFlags():
 
     return args
 
-def: variableGenerator(N):
+def variableGenerator(N):
     #to make p and q
+
+    print "N: %d\n" % N
     p = 0
     q = 0
     while(p == q):
-        p = number.getStrongPrime(N/2)
-        q = number.getStrongPrime(N/2)
+        p = number.getPrime(N/2)
+        q = number.getPrime(N/2)
         if len(str(p)) != len(str(q)):
             p = int(p)
             q = int(q)
             p = 0
             q = 0
     print "P: %d\n" % p
-    print "Q: %d\n" % q 
+    print "Q: %d\n" % q
+
+    N = p * q
+    order = (p-1)*(q-1)
+
+    print "N: %d\n" % N
+    print "Order: %d\n" % order
 
 def writeFiles(args):
     pub = open(args.publicFile, 'w')
