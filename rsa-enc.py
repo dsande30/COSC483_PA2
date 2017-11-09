@@ -52,21 +52,6 @@ def variableGenerator():
     #d is inverse of e mod order
     d = number.inverse(e, order)
 
-    print "\nP:", p
-    print "Q:", q
-    print "N:", N
-    print "Order:", order
-    print "E:", e
-    print "D:", d
-
-    #arbitrary test -- does not work
-    m = ord('o')
-    print "M:", m
-    enc = (m**e) % N
-    print "Enc:", enc
-    dec = (enc**d) % N
-    print "Dec:", dec
-
 def main():
     args = getFlags()
     readKey(args.keyFile)
