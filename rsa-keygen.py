@@ -11,6 +11,21 @@ def getFlags():
 
     return args
 
+def: variableGenerator(N):
+    #to make p and q
+    p = 0
+    q = 0
+    while(p == q):
+        p = number.getStrongPrime(N/2)
+        q = number.getStrongPrime(N/2)
+        if len(str(p)) != len(str(q)):
+            p = int(p)
+            q = int(q)
+            p = 0
+            q = 0
+    print "P: %d\n" % p
+    print "Q: %d\n" % q 
+
 def writeFiles(args):
     pub = open(args.publicFile, 'w')
     priv = open(args.secretFile, 'w')
@@ -43,6 +58,8 @@ def writeFiles(args):
 def main():
     args = getFlags()
     writeFiles(args)
+    variableGenerator(args.numBits)
+
 
     print "Public key file:", args.publicFile
     print "Private key file:", args.secretFile
