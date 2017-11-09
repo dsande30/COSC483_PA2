@@ -14,20 +14,23 @@ def getFlags():
 
     return args
 
-def variableGenerator(N):
-    #to make p and q
+def variableGenerator(numBits):
 
-    print "N: %d\n" % N
+    #to make p and q
+    print "N: %d\n" % numBits
     p = 0
     q = 0
-    while(p == q):
-        p = number.getPrime(N/2)
-        q = number.getPrime(N/2)
-        if len(str(p)) != len(str(q)):
-            p = int(p)
-            q = int(q)
-            p = 0
-            q = 0
+    l = (numBits / 2)
+    print "L: %d\n" % l
+    while(p ==0 and q == 0):
+        p = number.getPrime(l)
+        q = number.getPrime(l)
+        print "%d\n", sys.getsizeof(p)
+        #if len(str(p)) != len(str(q)):
+        #    p = int(p)
+        #    q = int(q)
+        #    p = 0
+        #    q = 0
     print "P: %d\n" % p
     print "Q: %d\n" % q
 
@@ -73,11 +76,6 @@ def main():
     args = getFlags()
     writeFiles(args)
     variableGenerator(args.numBits)
-
-
-    print "Public key file:", args.publicFile
-    print "Private key file:", args.secretFile
-    print "Number of bits file:", args.numBits
 
 if __name__ == "__main__":
 	main()
