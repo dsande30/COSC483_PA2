@@ -24,7 +24,7 @@ def: variableGenerator(N):
             p = 0
             q = 0
     print "P: %d\n" % p
-    print "Q: %d\n" % q 
+    print "Q: %d\n" % q
 
 def writeFiles(args):
     pub = open(args.publicFile, 'w')
@@ -54,6 +54,19 @@ def writeFiles(args):
     #close files
     pub.close()
     priv.close()
+    
+def pad(message, r):
+    paddedM = b'\x00' + b'\x02'
+    test = 0
+    while test == 0:
+        test = 1
+        randBits = str(random.getrandbits(r))
+        for n in randBits:
+            if n == b'x\00':
+                test = 0
+    randBits = str(random.getrandbits(r))
+    paddedM += randBits + b'\x00' + message
+
 
 def main():
     args = getFlags()
