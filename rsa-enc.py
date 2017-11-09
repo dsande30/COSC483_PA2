@@ -25,7 +25,9 @@ def readKey(keyFile):
     return contents
 
 def readInput(inputFile):
-    m = inputFIle.readline()
+    i = open(inputFile, 'r')
+    m = i.readline()
+    i.close()
     return m
 
 def variableGenerator():
