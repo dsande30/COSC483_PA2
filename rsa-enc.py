@@ -15,11 +15,14 @@ def getFlags():
     return args
 
 def readKey(keyFile):
+    contents = []
     key = open(keyFile, 'rb')
     numBits = keyFile.readline()
     N = keyFile.readline()
     e = keyFile.readline()
     key.close()
+    contents += numBits + N + e
+    return contents
 
 def variableGenerator():
     #to make p and q
@@ -66,9 +69,17 @@ def pad(message, r):
     while test == 0:
         test = 1
         randBits = str(random.getrandbits(r))
+        bitBlocks = []
+        check = randBits[:]
+        while len(check) > 0:
+            slicelen = min(len(randbits), 8)
+            bitBlocks.append(check[0:slicelen])
+            check = check[slicelen:]
         print("randBits: ", randBits)
         print("Length of randBits: ", len(randBits))
-        for n in randBits:
+        print("bitBlocks: ", bitBlocks)
+        print("bitBlocks Length: ", len(bitBlocks))
+        for n in bitBlocks:
             if n == b'x\00':
                 test = 0
     paddedM += randBits + b'\x00' + message

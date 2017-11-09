@@ -15,11 +15,14 @@ def getFlags():
     return args
 
 def readKey(keyFile):
+    contents = []
     key = open(keyFile, 'rb')
     numBits = keyFile.readline()
     N = keyFile.readline()
     d = keyFile.readline()
     key.close()
+    contents += numBits + N + d
+    return contents
 
 
 def main():
