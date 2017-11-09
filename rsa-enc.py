@@ -24,9 +24,7 @@ def readKey(keyFile):
     contents += numBits + N + e
     return contents
 
-def readInput(inputFile):
-    m = inputFIle.readline()
-    return m
+
 
 def variableGenerator():
     #to make p and q
@@ -92,7 +90,7 @@ def pad(message, r):
 
 def main():
     args = getFlags()
-    contents = readKey(args.keyFile)
+
     variableGenerator()
     message = readInput(args.inputFile)
     paddedM = pad(message, int(contents[0]) / 2)
