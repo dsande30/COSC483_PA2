@@ -3,7 +3,6 @@ import sys
 import argparse
 from Crypto.Util import number
 import fractions
-import re
 
 def getFlags():
     #parse command line args
@@ -48,11 +47,8 @@ def writeOutput(outputFile, m):
     out.close()
 
 def unpad(m):
-    #pad, r, M = m.split("0")
-    #M = M.strip()
-    M = re.findall("0", m)
-    #print "pad %s" % pad
-    #print "r %s" % r
+    r, M = m.split("0", 1)
+    M = M.strip()
     print M
     #return M
 
