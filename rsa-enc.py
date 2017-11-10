@@ -75,15 +75,19 @@ def pad(message, r):
     message = message.strip()
     print "Message before pad: %s" % message
     messageLen = 0
-    if messageLen != (r - 24):
-        message = message + "0"*((r - 24) - messageLen)
+    padCount = 0
+    while messageLen != (r - 24):
+        message = message + "0"
+        padCount += 1
         #messageLen += (r - 24) - messageLen
     for i in range(0, len(message)):
         messageLen += int(message[i]).bit_length()
+    messageLen += padCount
     print "Message after pad: %s" % message
     print "messageLen: %d" % messageLen
 
     M += message
+    print "What's M: %s" % M
     bitLength = 0
     for i in range(0, len(M)):
         bitLength += int(M[i]).bit_length()
