@@ -89,9 +89,10 @@ def pad(message, r):
     print "What's M: %s" % M
     bitLength = 0
     for i in range(0, len(M)):
+        print M[i]
         bitLength += int(M[i]).bit_length()
+        print M[i]
     print "bitLength: %d" % bitLength
-    print "%s" % M
     return int(M)
 
 
