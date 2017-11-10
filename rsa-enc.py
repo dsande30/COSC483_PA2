@@ -77,7 +77,7 @@ def pad(message, r):
         message = "0"*((r - 24) - int(message).bit_length())
     M += message
     print "%s" % M
-    return M
+    return int(M)
 
 
 
