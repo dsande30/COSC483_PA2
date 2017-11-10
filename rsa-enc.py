@@ -13,14 +13,12 @@ def getFlags():
     parser.add_argument("-i", dest = 'inputFile', help="Enter input file", required = True)
     parser.add_argument("-o", dest = 'outputFile', help= "Enter output file", required=True)
     args = parser.parse_args()
-
     return args
 
 def readKey(keyFile):
     contents = []
     key = open(keyFile, 'rb')
     numBits = key.readline()
-    #print "NumBits after read: %s" %numBits
     N = key.readline()
     e = key.readline()
     key.close()
@@ -30,7 +28,6 @@ def readKey(keyFile):
     contents.append(int(numBits))
     contents.append(int(N))
     contents.append(int(e))
-    #print contents
     return contents
 
 def readInput(inputFile):
@@ -38,39 +35,6 @@ def readInput(inputFile):
     m = i.readline()
     i.close()
     return m
-
-def variableGenerator():
-    #to make p and q
-    p = 0
-    q = 0
-    while(p == q):
-        p = number.getStrongPrime(512)
-        q = number.getStrongPrime(512)
-        if len(str(p)) != len(str(q)):
-            p = int(p)
-            q = int(q)
-            p = 0
-            q = 0
-
-    N = p * q
-    order = (p-1)*(q-1)
-
-    #calculate e: coprime to order
-    #NOTE: I am not confident this works.
-    ePrimes = [3,5,7,17,257, 65537]
-    booly = 0
-    for x in ePrimes:
-        if(fractions.gcd(order, x) == 1):
-            booly = 1
-            print "e =", x
-            e = x
-            break
-    if booly == 0:
-        sys.exit("No coprime")
-        e = -1
-
-    #d is inverse of e mod order
-    d = number.inverse(e, order)
 
 def pad(message, r):
     paddedM = b'\x00' + b'\x02'
@@ -106,16 +70,17 @@ def pad(message, r):
     paddedM += format(int(randBits), '02x') + b'\x00' + binascii.hexlify(message)
     return paddedM
 
+def Encrypt(m):
+    print "M: %s" % m
+
 def main():
     args = getFlags()
     contents = readKey(args.keyFile)
-    variableGenerator()
     message = readInput(args.inputFile)
-    #print("N: ", contents[1])
     print("numBits: ", contents[0])
-    #print(contents)
     paddedM = pad(message, int(contents[0]) / 2)
     print("paddedM: ", paddedM)
+    Encrypt(paddedM)
 
 
 if __name__ == "__main__":
