@@ -14,6 +14,11 @@ def getFlags():
 
     return args
 
+def fillOutput(outputFile, paddedM):
+    o = open(outputFile, 'w')
+    o.write("".join(paddedM))
+    o.close()
+
 def readKey(keyFile):
     contents = []
     key = open(keyFile, 'rb')
