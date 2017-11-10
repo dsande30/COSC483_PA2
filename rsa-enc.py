@@ -92,6 +92,8 @@ def pad(message, r):
     bitLength = 0
     for i in range(0, len(M)):
         bitLength += int(M[i]).bit_length()
+        if M[i] == "0":
+            bitLength += 1
     print "bitLength: %d" % bitLength
     return int(M)
 
