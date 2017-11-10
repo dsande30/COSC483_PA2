@@ -38,9 +38,9 @@ def Dec(key, c):
     c = int(c)
     d = int(key[2])
     N = int(key[1])
-    print "C: %d" % c
-    print "N: %d" % N
-    print "d: %d" % d
+    #print "C: %d" % c
+    #print "N: %d" % N
+    #print "d: %d" % d
     m = pow(c, d, N)
     return m
 
@@ -52,10 +52,10 @@ def writeOutput(outputFile, m):
 
 #Removes the padding to reveal the original message
 def unpad(m):
-    print m
+    #print m
     r, M = m.split("0", 1)
     M = M.strip()
-    print M
+    #print M
     return M
 
 def main():
