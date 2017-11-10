@@ -47,6 +47,7 @@ def writeOutput(outputFile, m):
     out.close()
 
 def unpad(m):
+    print m
     r, M, pad = m.split("0")
     M = M.strip()
     print M
