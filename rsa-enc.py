@@ -70,7 +70,7 @@ def pad(message, r):
     message = message.strip()
     print "Message before pad: %s" % message
     messageLen = 0
-    padCount = 0
+    print "r - 24 = %d" % (r - 24)
     for i in range(0, len(message)):
         messageLen += int(message[i]).bit_length()
         if message[i] == "0":
