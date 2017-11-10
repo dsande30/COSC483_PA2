@@ -50,7 +50,8 @@ def readInput(inputFile):
 
 def pad(message, r):
     print "Bear with me Schuchard"
-    M = str(ord(b'\x00')) + str(ord(b'\x02'))
+    M = ""
+    M += ord(b'\x00') + ord(b'\x02')
     test = 0
     while test == 0:
         test = 1
@@ -66,18 +67,10 @@ def pad(message, r):
     print "Rand: %s" % rand
     print randlength
     M += rand + str(ord(b'\x00'))
-    #testlength = 0
-    #for i in range(0, len(M)):
-    #    testlength += int(M[i]).bit_length()
-    #bitlength = randlength + 4
-    #print "Testlength: %d" % testlength
-    #print "Bitlength: %d" % bitlength
     message = message.strip()
     print "Message before pad: %s" % message
     messageLen = 0
     padCount = 0
-    test = "0"
-    print int(test[0]).bit_length()
     for i in range(0, len(message)):
         messageLen += int(message[i]).bit_length()
         if message[i] == "0":
@@ -104,9 +97,6 @@ def main():
     contents = readKey(args.keyFile)
     message = readInput(args.inputFile)
     paddedM = pad(message, int(contents[0]) / 2)
-    #c = Encrypt(paddedM, contents)
-    #writeOutput(args.outputFile, c)
-    #paddedM = pad(message, int(contents[0]) / 2)
     c = Encrypt(paddedM, contents)
     writeOutput(args.outputFile, c)
 
