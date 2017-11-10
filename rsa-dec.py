@@ -50,11 +50,11 @@ def writeOutput(outputFile, m):
 def unpad(m):
     #pad, r, M = m.split("0")
     #M = M.strip()
-    re.findall("0", m)
-    print "pad %s" % pad
-    print "r %s" % r
-    print "M %s" % M
-    return M
+    M = re.findall("0", m)
+    #print "pad %s" % pad
+    #print "r %s" % r
+    print M
+    #return M
 
 def main():
     args = getFlags()
