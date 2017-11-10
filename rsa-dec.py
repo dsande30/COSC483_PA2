@@ -48,6 +48,9 @@ def writeOutput(outputFile, m):
 
 def unpad(m):
     pad, r, M = m.split("0")
+    print pad
+    print r
+    print M
     return M
 
 def main():
@@ -56,6 +59,7 @@ def main():
     c = readInput(args.inputFile)
     m = Dec(key, c)
     m = unpad(str(m))
+    print m
     m = int(m)
     writeOutput(args.outputFile, m)
 
