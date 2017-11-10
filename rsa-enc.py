@@ -131,7 +131,7 @@ def main():
     #paddedM = pad(message, int(contents[0]) / 2) #NOTE:Doesn't work
 
     #NOTE: Arbitrary padded message for now
-    paddedM = 7654321
+    paddedM = 666999420
     c = Encrypt(paddedM, contents)
     writeOutput(args.outputFile, c)
 
