@@ -42,7 +42,7 @@ def readKey(keyFile):
     return int(numBits), int(N), int(e)
 
 def readInput(inputFile):
-    i = open(inputFile, 'r')
+    i = open(inputFile, 'rb')
     m = i.readline()
     i.close()
     m = str(m)
