@@ -47,10 +47,6 @@ def readInput(inputFile):
     i.close()
     return m
 
-
-
-
-
 def pad(message, r):
     print "Bear with me Schuchard"
     M = b'\x00' + b'\x02'
@@ -63,22 +59,25 @@ def pad(message, r):
         for i in range(0, len(rand)):
             if rand[i] == '0':
                 test = 0
-        for i in range(0, len(rand)):
             randlength += int(rand[i]).bit_length()
         if randlength != r:
             test = 0
     print "Rand: %s" % rand
     print randlength
     M += rand + b'\x00'
-    testlength = 0
-    for i in range(0, len(M)):
-        testlength += int(M[i]).bit_length()
-    bitlength = randlength + 4
-    print "Testlength: %d" % testlength
+    #testlength = 0
+    #for i in range(0, len(M)):
+    #    testlength += int(M[i]).bit_length()
+    #bitlength = randlength + 4
+    #print "Testlength: %d" % testlength
     print "Bitlength: %d" % bitlength
-    M += message.strip()
+    message = message.strip()
+    if int(message).bit_length() != (r - 24):
+        message = "0"*((r - 24) - int(message).bitlength())
+    M += message
     print "%s" % M
     print "%s" % M[:-1]
+
 
 def main():
     args = getFlags()
