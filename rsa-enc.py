@@ -75,8 +75,8 @@ def pad(message, r):
         messageLen += int(message[i]).bit_length()
         if message[i] == "0":
             messageLen += 1
-    for n in range(0, len(message)):
-        message = "0"*((r - 24) - messageLen) + message
+    #for n in range(0, len(message)):
+    #    message = "0"*((r - 24) - messageLen) + message
         #messageLen += (r - 24) - messageLen
     print "Message after pad: %s" % message
     print "messageLen: %d" % messageLen
