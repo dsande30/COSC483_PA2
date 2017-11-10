@@ -46,11 +46,17 @@ def writeOutput(outputFile, m):
     out.write("%d" %m)
     out.close()
 
+def unpad(m):
+    pad, r, M = m.split("0")
+    return M
+
 def main():
     args = getFlags()
     key = readKey(args.keyFile)
     c = readInput(args.inputFile)
     m = Dec(key, c)
+    m = unpad(str(m))
+    m = int(m)
     writeOutput(args.outputFile, m)
 
 if __name__ == "__main__":
