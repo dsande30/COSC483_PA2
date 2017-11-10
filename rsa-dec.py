@@ -15,20 +15,43 @@ def getFlags():
     return args
 
 def readKey(keyFile):
-    contents = []
     key = open(keyFile, 'rb')
-    numBits = keyFile.readline()
-    N = keyFile.readline()
-    d = keyFile.readline()
+    numBits = key.readline()
+    numBits = numBits.strip()
+    N = key.readline()
+    N = N.strip()
+    d = key.readline()
+    d = d.strip()
     key.close()
-    contents += numBits + N + d
-    return contents
+    return numBits, N, d
 
+def readInput(inputFile):
+    inp = open(inputFile, 'rb')
+    c = inp.readline()
+    c = c.strip()
+    return c
+
+def Dec(key, c):
+    c = int(c)
+    d = int(key[2])
+    N = int(key[1])
+    print "C: %d" % c
+    print "N: %d" % N
+    print "d: %d" % d
+    m = pow(c, d, N)
+    return m
+
+def writeOutput(outputFile, m):
+    out = open(outputFile, 'wb')
+    out.write("%d" %m)
+    out.close()
 
 def main():
     args = getFlags()
-    readKey(args.keyFile)
-    variableGenerator()
+    key = readKey(args.keyFile)
+    c = readInput(args.inputFile)
+    m = Dec(key, c)
+    writeOutput(args.outputFile, m)
 
 if __name__ == "__main__":
 	main()

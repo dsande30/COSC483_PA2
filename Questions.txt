@@ -1,0 +1,7 @@
+Questions we need to ask:
+
+  1. Why does our math fail with ~7 digit numbers?
+    -> Checked with https://www.cs.drexel.edu/~jpopyack/IntroCS/HW/RSAWorksheet.html
+  2. How do we do padding with hex digits?
+
+NOTE to Chad: We need an unpadder

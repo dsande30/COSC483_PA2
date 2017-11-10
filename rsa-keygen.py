@@ -15,7 +15,6 @@ def getFlags():
 
 def variableGenerator(numBits):
     #to make p and q
-    numBits = numBits
     p = 0
     q = 0
     l = (numBits / 2)
@@ -48,13 +47,10 @@ def variableGenerator(numBits):
     #NOTE: if this is not allowed, let me know. I was unsure.
     d = number.inverse(e, order)
 
-    '''
-    #prelim testing
-    c = (107 ** e) % N
-    print "%d" % c
-    newm = (c ** d) % N
-    print "%d" % newm
-    '''
+    print "P: %d" % p
+    print "Q: %d" % q
+    print "N: %d" % N
+    print "Order: %d" % order
 
     return N, d, e
 

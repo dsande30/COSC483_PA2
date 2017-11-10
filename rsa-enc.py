@@ -15,13 +15,22 @@ def getFlags():
     args = parser.parse_args()
     return args
 
-def fillOutput(outputFile, paddedM):
+def Encrypt(m, contents):
+    print "M: %d" % m
+    print "N: %d" % contents[1]
+    print "e: %d" % contents[2]
+    return pow(m, contents[2], contents[1])
+    #return ((m**contents[2]) % contents[1])
+
+#NOTE: This will change with proper message
+def writeOutput(outputFile, paddedM):
     o = open(outputFile, 'wb')
-    o.write("".join(paddedM))
+    #o.write("".join(paddedM))
+    o.write(str(paddedM))
     o.close()
 
+
 def readKey(keyFile):
-    contents = []
     key = open(keyFile, 'rb')
     numBits = key.readline()
     N = key.readline()
@@ -30,10 +39,7 @@ def readKey(keyFile):
     numBits = numBits.strip()
     N = N.strip()
     e = e.strip()
-    contents.append(int(numBits))
-    contents.append(int(N))
-    contents.append(int(e))
-    return contents
+    return int(numBits), int(N), int(e)
 
 def readInput(inputFile):
     i = open(inputFile, 'r')
@@ -41,6 +47,46 @@ def readInput(inputFile):
     i.close()
     return m
 
+
+
+
+
+def pad(message, r):
+    M = b'\x00' + b'\x02'
+
+    print "Seed:", random.seed()
+
+    #ensure always 20 bits
+    randBits = 0
+    while randBits.bit_length() != 20:
+        randBits = random.getrandbits(r)
+
+    #need direct copy of bits
+    #check = randBits.bit_length()
+
+    #seperate into chunks
+    bitBlocks = []
+
+    check = hex(randBits)
+
+    print "Check Hex stuff: %s" % check.strip('L')
+
+    """
+    while len(check) > 0:
+        slicelen = min(len(check), 8)
+        bitBlocks.append(check[0:slicelen])
+        check = check[slicelen:]
+    """
+
+    for n in bitBlocks:
+        if n == b'\x00':
+            while n == b'\x00':
+                n = random.getrandbits(8)
+
+    x = random.getrandbits(8)
+    print "X: %s" % str(x).encode('hex')
+
+'''
 def pad(message, r):
     paddedM = b'\x00' + b'\x02'
     print("r: ", r)
@@ -53,12 +99,12 @@ def pad(message, r):
     #test = 0
     #while test == 0:
     test = 1
-    randBits = str(random.getrandbits(r))
+    randBits = random.getrandbits(r)
     print "randBits before encoding: %s" % randBits
-    randBits = randBits.encode('utf-8')
-    print "randBits after encoding: %s" % randBits
+    #randBits = randBits.encode('utf-8')
+    #print "randBits after encoding: %s" % randBits
     bitBlocks = []
-    check = randBits[:]
+    check = str(randBits)[:]
     while len(check) > 0:
         slicelen = min(len(check), 8)
         bitBlocks.append(check[0:slicelen])
@@ -70,33 +116,24 @@ def pad(message, r):
     for n in bitBlocks:
         if n == b'\x00':
             while n == b'\x00':
-                n = str(random.getrandbits(1))
+                n = str(random.getrandbits(8))
             #test = 0
     #randBits = binascii.hexlify(randBits)
     print("Hex randBits: 0x%s" % randBits)
     paddedM += format(int(randBits), '02x') + b'\x00' + binascii.hexlify(message)
     return paddedM
-
-def Encrypt(m, contents):
-    #print "M: %s" % m
-    #print "%d" % contents[2]
-    return (int(m)**contents[2]) % contents[1]
+'''
 
 def main():
     args = getFlags()
     contents = readKey(args.keyFile)
     message = readInput(args.inputFile)
-    print("numBits: ", contents[0])
-    paddedM = pad(message, int(contents[0]) / 2)
-    print("paddedM: ", paddedM)
-<<<<<<< Updated upstream
-    c = Encrypt(paddedM, contents)
-    print "C: %s" % c
-=======
-    encMessage = Encrypt(paddedM)
-    fillOutput(args.outputFile, encMessage)
->>>>>>> Stashed changes
+    #paddedM = pad(message, int(contents[0]) / 2) #NOTE:Doesn't work
 
+    #NOTE: Arbitrary padded message for now
+    paddedM = 7654321
+    c = Encrypt(paddedM, contents)
+    writeOutput(args.outputFile, c)
 
 if __name__ == "__main__":
 	main()
