@@ -51,7 +51,7 @@ def readInput(inputFile):
 def pad(message, r):
     print "Bear with me Schuchard"
     M = ""
-    M += ord(b'\x00') + ord(b'\x02')
+    M += str(ord(b'\x00')) + str(ord(b'\x02'))
     test = 0
     while test == 0:
         test = 1
