@@ -76,9 +76,8 @@ def pad(message, r):
         messageLen += int(message[i]).bit_length()
         if message[i] == "0":
             messageLen += 1
-    #Pads 0's if the message isn't the right amount of numBits
-    #Also only works for certain bit sizes
-    message = message + "0"*((r - 24) - messageLen)
+    #Should pad 0's if the message isn't the right amount of numBits
+    #message = message + "0"*((r - 24) - messageLen)
 
     M += message
 
