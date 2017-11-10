@@ -45,11 +45,12 @@ def readInput(inputFile):
     i = open(inputFile, 'r')
     m = i.readline()
     i.close()
+    m = str(m)
     return m
 
 def pad(message, r):
     print "Bear with me Schuchard"
-    M = b'\x00' + b'\x02'
+    M = str(ord(b'\x00')) + str(ord(b'\x02'))
     test = 0
     while test == 0:
         test = 1
@@ -64,7 +65,7 @@ def pad(message, r):
             test = 0
     print "Rand: %s" % rand
     print randlength
-    M += rand + b'\x00'
+    M += rand + str(ord(b'\x00'))
     #testlength = 0
     #for i in range(0, len(M)):
     #    testlength += int(M[i]).bit_length()
