@@ -84,18 +84,12 @@ def main():
     args = getFlags()
     contents = readKey(args.keyFile)
     message = readInput(args.inputFile)
-<<<<<<< HEAD
     paddedM = pad(message, int(contents[0]) / 2)
     #c = Encrypt(paddedM, contents)
     #writeOutput(args.outputFile, c)
-=======
-    #paddedM = pad(message, int(contents[0]) / 2) #NOTE:Doesn't work
-
-    #NOTE: Arbitrary padded message for now
-    paddedM = 666999420
+    #paddedM = pad(message, int(contents[0]) / 2)
     c = Encrypt(paddedM, contents)
     writeOutput(args.outputFile, c)
->>>>>>> master
 
 if __name__ == "__main__":
 	main()
