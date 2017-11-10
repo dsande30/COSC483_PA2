@@ -79,6 +79,7 @@ def pad(message, r):
     print message
     print int(message).bit_length()
     M += message
+    print int(M).bit_length()
     print "%s" % M
     return int(M)
 
