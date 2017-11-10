@@ -16,7 +16,7 @@ def getFlags():
     return args
 
 def fillOutput(outputFile, paddedM):
-    o = open(outputFile, 'w')
+    o = open(outputFile, 'wb')
     o.write("".join(paddedM))
     o.close()
 
@@ -50,26 +50,28 @@ def pad(message, r):
         message += "0" * ((r-24)-len(message))
     print("Message: %s" % message)
     #print("Message Length: ", len(message))
-    test = 0
-    while test == 0:
-        test = 1
-        randBits = str(random.getrandbits(r))
-        print "randBits before encoding: %s" % randBits
-        randBits = randBits.encode('utf-8')
-        print "randBits after encoding: %s" % randBits
-        bitBlocks = []
-        check = randBits[:]
-        while len(check) > 0:
-            slicelen = min(len(check), 8)
-            bitBlocks.append(check[0:slicelen])
-            check = check[slicelen:]
-        #print("randBits: %s" % randBits)
-        #print("Length of randBits: ", len(randBits))
-        print("bitBlocks: ", bitBlocks)
-        #print("bitBlocks Length: ", len(bitBlocks))
-        for n in bitBlocks:
-            if n == b'\x00':
-                test = 0
+    #test = 0
+    #while test == 0:
+    test = 1
+    randBits = str(random.getrandbits(r))
+    print "randBits before encoding: %s" % randBits
+    randBits = randBits.encode('utf-8')
+    print "randBits after encoding: %s" % randBits
+    bitBlocks = []
+    check = randBits[:]
+    while len(check) > 0:
+        slicelen = min(len(check), 8)
+        bitBlocks.append(check[0:slicelen])
+        check = check[slicelen:]
+    #print("randBits: %s" % randBits)
+    #print("Length of randBits: ", len(randBits))
+    print("bitBlocks: ", bitBlocks)
+    #print("bitBlocks Length: ", len(bitBlocks))
+    for n in bitBlocks:
+        if n == b'\x00':
+            while n == b'\x00':
+                n = str(random.getrandbits(1))
+            #test = 0
     #randBits = binascii.hexlify(randBits)
     print("Hex randBits: 0x%s" % randBits)
     paddedM += format(int(randBits), '02x') + b'\x00' + binascii.hexlify(message)
@@ -87,8 +89,13 @@ def main():
     print("numBits: ", contents[0])
     paddedM = pad(message, int(contents[0]) / 2)
     print("paddedM: ", paddedM)
+<<<<<<< Updated upstream
     c = Encrypt(paddedM, contents)
     print "C: %s" % c
+=======
+    encMessage = Encrypt(paddedM)
+    fillOutput(args.outputFile, encMessage)
+>>>>>>> Stashed changes
 
 
 if __name__ == "__main__":
