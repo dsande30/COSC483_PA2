@@ -1,4 +1,4 @@
-#Hello everyone! Let's get this party started
+#RSA Encrypt
 import sys
 import argparse
 from Crypto.Util import number
@@ -15,6 +15,7 @@ def getFlags():
     args = parser.parse_args()
     return args
 
+#Encrypts the messag eafter padding
 def Encrypt(m, contents):
     print "M: %d" % m
     print "N: %d" % contents[1]
@@ -25,11 +26,10 @@ def Encrypt(m, contents):
 #NOTE: This will change with proper message
 def writeOutput(outputFile, paddedM):
     o = open(outputFile, 'wb')
-    #o.write("".join(paddedM))
     o.write(str(paddedM))
     o.close()
 
-
+#Reads in the key file
 def readKey(keyFile):
     key = open(keyFile, 'rb')
     numBits = key.readline()
@@ -41,6 +41,7 @@ def readKey(keyFile):
     e = e.strip()
     return int(numBits), int(N), int(e)
 
+#Reads in the input file
 def readInput(inputFile):
     i = open(inputFile, 'rb')
     m = i.readline()
@@ -48,11 +49,13 @@ def readInput(inputFile):
     m = str(m)
     return m
 
+#Function pads the message and prepares for encryption
 def pad(message, r):
-    print "Bear with me Schuchard"
     M = ""
     M += str(ord(b'\x00')) + str(ord(b'\x02'))
     test = 0
+
+    #Gets r random bits for padding
     while test == 0:
         test = 1
         rand = random.getrandbits(r)
@@ -64,28 +67,36 @@ def pad(message, r):
             randlength += int(rand[i]).bit_length()
         if randlength != r:
             test = 0
-    print "Rand: %s" % rand
-    print randlength
+
     M += rand + str(ord(b'\x00'))
     message = message.strip()
-    print "Message before pad: %s" % message
     messageLen = 0
-    print "r - 24 = %d" % (r - 24)
+
     for i in range(0, len(message)):
         messageLen += int(message[i]).bit_length()
         if message[i] == "0":
             messageLen += 1
+    #Pads 0's if the message isn't the right amount of numBits
+    #Also only works for certain bit sizes
     message = message + "0"*((r - 24) - messageLen)
-    print "Message after pad: %s" % message
-    print "messageLen: %d" % messageLen
+
     M += message
-    print "What's M: %s" % M
+
     bitLength = 0
     for i in range(0, len(M)):
         bitLength += int(M[i]).bit_length()
         if M[i] == "0":
             bitLength += 1
-    print "bitLength: %d" % bitLength
+
+    #DEBUGGING
+    #print "Rand: %s" % rand
+    #print randlength
+    #print "r - 24 = %d" % (r - 24)
+    #print "Message after pad: %s" % message
+    #print "messageLen: %d" % messageLen
+    #print "What's M: %s" % M
+    #print "bitLength: %d" % bitLength
+
     return int(M)
 
 

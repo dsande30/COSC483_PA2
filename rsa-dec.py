@@ -1,4 +1,4 @@
-#Hello everyone! Let's get this party started
+#RSA Decrypt
 import sys
 import argparse
 from Crypto.Util import number
@@ -14,6 +14,7 @@ def getFlags():
 
     return args
 
+#Reads in key file
 def readKey(keyFile):
     key = open(keyFile, 'rb')
     numBits = key.readline()
@@ -25,12 +26,14 @@ def readKey(keyFile):
     key.close()
     return numBits, N, d
 
+#Reads in Input File
 def readInput(inputFile):
     inp = open(inputFile, 'rb')
     c = inp.readline()
     c = c.strip()
     return c
 
+#Decrypts the file
 def Dec(key, c):
     c = int(c)
     d = int(key[2])
@@ -41,11 +44,13 @@ def Dec(key, c):
     m = pow(c, d, N)
     return m
 
+#Writes the output to the designated output file
 def writeOutput(outputFile, m):
     out = open(outputFile, 'wb')
     out.write("%d" %m)
     out.close()
 
+#Removes the padding to reveal the original message
 def unpad(m):
     print m
     r, M = m.split("0", 1)
