@@ -75,6 +75,7 @@ def pad(message, r):
     if int(message).bit_length() != (r - 24):
         message = "0"*((r - 24) - int(message).bit_length())
     M += message
+    M = str(M)
     print "%s" % M
     print "%s" % M[:-1]
 
