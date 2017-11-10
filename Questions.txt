@@ -5,3 +5,6 @@ Questions we need to ask:
   2. How do we do padding with hex digits?
 
 NOTE to Chad: We need an unpadder
+
+
+git pull origin master
