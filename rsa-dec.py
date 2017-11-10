@@ -58,7 +58,6 @@ def main():
     c = readInput(args.inputFile)
     m = Dec(key, c)
     m = unpad(str(m))
-    print m
     m = int(m)
     writeOutput(args.outputFile, m)
 
