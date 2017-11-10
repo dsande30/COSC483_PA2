@@ -19,22 +19,22 @@ def variableGenerator(numBits):
 
     #to make p and q
     numBits = numBits
-    print "N: %d" % numBits
+    #print "N: %d" % numBits
     p = 0
     q = 0
     l = (numBits / 2)
-    print "L: %d" % l
+    #print "L: %d" % l
     while(p ==0 and q == 0):
         p = number.getPrime(l)
         q = number.getPrime(l)
-        print "p bitlength %d" % p.bit_length()
-        print "q bitlength %d" % q.bit_length()
+        #print "p bitlength %d" % p.bit_length()
+        #print "q bitlength %d" % q.bit_length()
         #confirm lengths are the same, not the values
         if p.bit_length() != q.bit_length() or p == q:
             p = 0
             q = 0
-    print "P: %d" % int(p)
-    print "Q: %d" % int(q)
+    #print "P: %d" % int(p)
+    #print "Q: %d" % int(q)
 
     p = int(p)
     q = int(q)
@@ -42,8 +42,8 @@ def variableGenerator(numBits):
     N = p * q
     order = (p-1)*(q-1)
 
-    print "N: %d" % N
-    print "Order: %d" % order
+    #print "N: %d" % N
+    #print "Order: %d" % order
 
     #calculate e: coprime to order
     #NOTE: I am not confident this works.
@@ -52,7 +52,7 @@ def variableGenerator(numBits):
     for x in ePrimes:
         if(fractions.gcd(order, x) == 1):
             booly = 1
-            print "e: %d" % x
+            #print "e: %d" % x
             e = x
             break
     if booly == 0:
@@ -60,26 +60,31 @@ def variableGenerator(numBits):
 
     #d is inverse of e mod order
     d = number.inverse(e, order)
-    print "d: %d" % d
+    #print "d: %d" % d
 
+    '''
+    #prelim testing
+    c = (107 ** e) % N
+    print "%d" % c
+    newm = (c ** d) % N
+    print "%d" % newm
+    '''
 
-def writeFiles(args):
+    return N, d, e
+
+def writeFiles(args, keys):
     pub = open(args.publicFile, 'w')
     priv = open(args.secretFile, 'w')
 
-    #We don't have N yet so this will be weird
+    #Write public key
     pub.write("%d\n" % args.numBits)
-    #pub.write("%d" % N)
-    pub.write("We don't have N yet\n")
-    #pub.write("%d" % d)
-    pub.write("We don't have d yet\n")
+    pub.write("%d\n" % keys[0])
+    pub.write("%d\n" % keys[2])
 
-    #We don't have N yet so this will be weird
+    #Write private key
     priv.write("%d\n" % args.numBits)
-    #pub.write("%d" % N)
-    priv.write("We don't have N yet\n")
-    #pub.write("%d" % d)
-    priv.write("We don't have e yet\n")
+    priv.write("%d\n" % keys[0])
+    priv.write("%d\n" % keys[1])
 
     '''
     print "Bits: %d" % int(Nbits)
@@ -97,8 +102,11 @@ def writeFiles(args):
 
 def main():
     args = getFlags()
-    writeFiles(args)
-    variableGenerator(args.numBits)
+    keys = variableGenerator(args.numBits)
+    print "N: %d" %keys[0]
+    print "d: %d" %keys[1]
+    print "e: %d" %keys[2]
+    writeFiles(args, keys)
 
 if __name__ == "__main__":
 	main()
