@@ -50,7 +50,7 @@ def writeOutput(outputFile, m):
 def unpad(m):
     #pad, r, M = m.split("0")
     #M = M.strip()
-    re.findall("0")
+    re.findall("0", m)
     print "pad %s" % pad
     print "r %s" % r
     print "M %s" % M
