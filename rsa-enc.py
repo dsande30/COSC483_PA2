@@ -75,8 +75,10 @@ def pad(message, r):
     paddedM += format(int(randBits), '02x') + b'\x00' + binascii.hexlify(message)
     return paddedM
 
-def Encrypt(m):
-    print "M: %s" % m
+def Encrypt(m, contents):
+    #print "M: %s" % m
+    #print "%d" % contents[2]
+    return (int(m)**contents[2]) % contents[1]
 
 def main():
     args = getFlags()
@@ -85,7 +87,8 @@ def main():
     print("numBits: ", contents[0])
     paddedM = pad(message, int(contents[0]) / 2)
     print("paddedM: ", paddedM)
-    Encrypt(paddedM)
+    c = Encrypt(paddedM, contents)
+    print "C: %s" % c
 
 
 if __name__ == "__main__":
