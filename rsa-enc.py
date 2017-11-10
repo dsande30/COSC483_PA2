@@ -80,6 +80,8 @@ def pad(message, r):
     print int(test[0]).bit_length()
     for i in range(0, len(message)):
         messageLen += int(message[i]).bit_length()
+        if message[i] == "0":
+            messageLen += 1
     for n in range(0, len(message)):
         message = message + "0"*((r - 24) - messageLen)
         #messageLen += (r - 24) - messageLen
