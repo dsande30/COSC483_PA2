@@ -50,7 +50,7 @@ def unpad(m):
     r, M = m.split("0", 1)
     M = M.strip()
     print M
-    #return M
+    return M
 
 def main():
     args = getFlags()
