@@ -17,9 +17,9 @@ def getFlags():
 
 #Encrypts the messag eafter padding
 def Encrypt(m, contents):
-    print "M: %d" % m
-    print "N: %d" % contents[1]
-    print "e: %d" % contents[2]
+    #print "M: %d" % m
+    #rint "N: %d" % contents[1]
+    #rint "e: %d" % contents[2]
     return pow(m, contents[2], contents[1])
     #return ((m**contents[2]) % contents[1])
 

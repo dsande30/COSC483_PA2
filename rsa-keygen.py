@@ -48,10 +48,10 @@ def variableGenerator(numBits):
     #NOTE: if this is not allowed, let me know. I was unsure.
     d = number.inverse(e, order)
 
-    print "P: %d" % p
-    print "Q: %d" % q
-    print "N: %d" % N
-    print "Order: %d" % order
+    #print "P: %d" % p
+    #print "Q: %d" % q
+    #print "N: %d" % N
+    #print "Order: %d" % order
 
     return N, d, e
 
